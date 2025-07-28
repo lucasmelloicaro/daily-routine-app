@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* Hide scrollbars for webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbars for all elements */
+* {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Allow scrolling but hide scrollbars */
+html, body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Make the main container scrollable without visible scrollbars */
+#root {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 100vh;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 480px) {
+  #root {
+    padding: 0.5rem;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  /* Touch-friendly button sizes */
+  button {
+    min-height: 44px;
+  }
+  
+  /* Larger touch targets for checkboxes */
+  input[type="checkbox"] {
+    min-width: 20px;
+    min-height: 20px;
+  }
+}
+
+/* Safe area padding for devices with notches */
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
