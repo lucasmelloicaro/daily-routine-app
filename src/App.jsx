@@ -55,7 +55,7 @@ function App() {
 
   return (
     <div 
-      className="w-[350px] mx-auto mt-2 p-4 bg-black rounded-2xl shadow-lg"
+      className="w-[400px] md:w-[400px] sm:w-full sm:max-w-full mobile-container mx-auto mt-2 p-4 bg-black rounded-2xl sm:rounded-none shadow-lg sm:shadow-none min-h-screen sm:min-h-screen"
       style={{WebkitAppRegion: 'drag'}}
     >
       <div className="flex items-center justify-between mb-3">

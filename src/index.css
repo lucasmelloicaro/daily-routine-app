@@ -15,6 +15,7 @@
 html, body {
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: #000000; /* Ensure black background */
 }
 
 /* Make the main container scrollable without visible scrollbars */
@@ -22,6 +23,8 @@ html, body {
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 100vh;
+  background-color: #000000; /* Black background for mobile */
+  min-height: 100vh; /* Full height on mobile */
 }
 
 /* Mobile responsive styles */
@@ -30,6 +33,14 @@ html, body {
     padding: 0.5rem;
     width: 100vw;
     height: 100vh;
+    background-color: #000000; /* Ensure black background on mobile */
+  }
+  
+  /* Full width container on mobile */
+  .mobile-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
   }
   
   /* Touch-friendly button sizes */
@@ -42,10 +53,16 @@ html, body {
     min-width: 20px;
     min-height: 20px;
   }
+  
+  /* Ensure black background for all mobile elements */
+  body, html, #root {
+    background-color: #000000 !important;
+  }
 }
 
 /* Safe area padding for devices with notches */
 body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
+  background-color: #000000; /* Black background */
 }

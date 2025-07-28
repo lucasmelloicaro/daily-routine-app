@@ -200,7 +200,7 @@ export const NotificationSettings = ({
     if (granted) {
       alert('Notifications enabled! 🔔');
     } else {
-      alert('Please enable notifications in your browser settings');
+      alert('Please enable notifications in your device settings');
     }
   };
 
@@ -249,7 +249,7 @@ export const NotificationSettings = ({
         onClick={handlePermissionRequest}
         className="w-full bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded mb-3 text-sm"
       >
-        🔔 Enable Browser Notifications
+        🔔 Enable Notifications
       </button>
 
       <div className="space-y-2 max-h-60 overflow-y-auto">

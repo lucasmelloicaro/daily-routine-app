@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { saveNotificationSettings, loadNotificationSettings } from '../supabase';
 
+// Import Capacitor for native notifications
+import { Capacitor } from '@capacitor/core';
+import { LocalNotifications } from '@capacitor/local-notifications';
+
 export const useNotificationSettings = () => {
   const [notificationSettings, setNotificationSettings] = useState({});
   const [showSettings, setShowSettings] = useState(false);
@@ -74,24 +78,58 @@ export const useNotificationSettings = () => {
     });
   };
 
-  const showTaskNotification = (taskName, deadline) => {
-    // For web version - browser notification
-    if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification('Daily Routine Reminder', {
-        body: `Time for: ${taskName} (Deadline: ${deadline})`,
-        icon: '/favicon.ico'
-      });
+  const showTaskNotification = async (taskName, deadline) => {
+    // Check if running on mobile (Capacitor)
+    if (Capacitor.isNativePlatform()) {
+      // Native Android notification
+      try {
+        await LocalNotifications.schedule({
+          notifications: [
+            {
+              title: 'Daily Routine Reminder 🏃‍♂️',
+              body: `Time for: ${taskName} (Deadline: ${deadline})`,
+              id: Date.now(),
+              schedule: { at: new Date() },
+              sound: 'default',
+              attachments: [],
+              actionTypeId: '',
+              extra: { taskName, deadline }
+            }
+          ]
+        });
+      } catch (error) {
+        console.error('Error showing native notification:', error);
+      }
+    } else {
+      // Web browser notification (desktop)
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('Daily Routine Reminder', {
+          body: `Time for: ${taskName} (Deadline: ${deadline})`,
+          icon: '/favicon.ico'
+        });
+      }
     }
     
-    // For mobile - this will be replaced with Capacitor notifications
     console.log(`Notification: ${taskName} deadline (${deadline}) reached!`);
   };
 
-  // Request notification permission
+  // Request notification permission (works for both web and mobile)
   const requestNotificationPermission = async () => {
-    if ('Notification' in window) {
-      const permission = await Notification.requestPermission();
-      return permission === 'granted';
+    if (Capacitor.isNativePlatform()) {
+      // Request Android notification permission
+      try {
+        const result = await LocalNotifications.requestPermissions();
+        return result.display === 'granted';
+      } catch (error) {
+        console.error('Error requesting native notification permission:', error);
+        return false;
+      }
+    } else {
+      // Web browser permission
+      if ('Notification' in window) {
+        const permission = await Notification.requestPermission();
+        return permission === 'granted';
+      }
     }
     return false;
   };

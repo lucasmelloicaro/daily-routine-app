@@ -15,12 +15,17 @@ const config: CapacitorConfig = {
   plugins: {
     StatusBar: {
       style: 'DARK',
-      backgroundColor: '#1f2937'
+      backgroundColor: '#000000',
+      overlay: false
     },
     LocalNotifications: {
       smallIcon: "ic_stat_icon_config_sample",
       iconColor: "#488AFF",
       sound: "beep.wav"
+    },
+    SplashScreen: {
+      backgroundColor: '#000000',
+      showSpinner: false
     }
   }
 };
